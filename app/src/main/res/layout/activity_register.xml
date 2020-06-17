@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="100dp"
+                android:scaleType="fitXY"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@color/indigo_500" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:background="@android:color/white"
+            android:gravity="left"
+            android:hint="Nama Lengkap"
+            android:inputType="text"
+            android:padding="@dimen/spacing_large"
+            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:background="@android:color/white"
+            android:gravity="left"
+            android:hint="Email"
+            android:inputType="text"
+            android:padding="@dimen/spacing_large"
+            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/nis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:background="@android:color/white"
+            android:gravity="left"
+            android:inputType="textEmailAddress"
+            android:hint="NIS"
+            android:padding="@dimen/spacing_large"
+            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:background="@android:color/white"
+            android:gravity="left"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:padding="@dimen/spacing_large"
+            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
+            android:textSize="14sp" />
+
+
+        <Spinner
+            android:id="@+id/spinnerkelas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            android:gravity="left"
+            style="@style/SpinnerTheme"
+            android:padding="@dimen/spacing_large"
+            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
+            android:textSize="14sp" />
+
+
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/indigo_500"
+            android:text="Buat Akun"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+
+    </LinearLayout>
+
+</ScrollView>
