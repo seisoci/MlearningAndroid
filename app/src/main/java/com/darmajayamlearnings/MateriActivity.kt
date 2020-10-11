@@ -2,7 +2,7 @@ package com.darmajayamlearnings
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.darmajaya.globalsurya.API.ApiClient
+import com.darmajayamlearnings.API.ApiClient
 import com.darmajayamlearnings.Adapter.KelasAdapter
 import com.darmajayamlearnings.Adapter.MateriAdapter
 import com.darmajayamlearnings.Model.Kelas
@@ -32,7 +32,7 @@ class MateriActivity : BaseActivity()  {
                     response?.isSuccessful!! -> {
                         dismissLoadingProgress()
                         materi = response.body()!!
-                        recyclerView.adapter = MateriAdapter(materi!!.data,this@MateriActivity)
+                        recyclerView.adapter = MateriAdapter(materi!!.data,this@MateriActivity, retrieveToken()!!, retrieveID()!!, getIntent().getStringExtra("id"))
                         recyclerView.layoutManager= LinearLayoutManager(this@MateriActivity,
                             LinearLayoutManager.VERTICAL,false)
                     }

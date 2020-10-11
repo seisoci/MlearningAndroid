@@ -34,7 +34,6 @@
             android:hint="Nama Lengkap"
             android:inputType="text"
             android:padding="@dimen/spacing_large"
-            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
             android:textSize="14sp" />
 
         <EditText
@@ -49,7 +48,6 @@
             android:hint="Email"
             android:inputType="text"
             android:padding="@dimen/spacing_large"
-            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
             android:textSize="14sp" />
 
         <EditText
@@ -64,7 +62,6 @@
             android:inputType="textEmailAddress"
             android:hint="NIS"
             android:padding="@dimen/spacing_large"
-            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
             android:textSize="14sp" />
 
         <EditText
@@ -79,7 +76,6 @@
             android:inputType="textPassword"
             android:hint="Password"
             android:padding="@dimen/spacing_large"
-            android:textCursorDrawable="@drawable/loginsignup_color_cursor"
             android:textSize="14sp" />
 
 
@@ -91,7 +87,6 @@
             android:layout_marginTop="@dimen/spacing_large"
             android:layout_marginRight="@dimen/spacing_large"
             android:gravity="left"
-            style="@style/SpinnerTheme"
             android:padding="@dimen/spacing_large"
             android:textCursorDrawable="@drawable/loginsignup_color_cursor"
             android:textSize="14sp" />

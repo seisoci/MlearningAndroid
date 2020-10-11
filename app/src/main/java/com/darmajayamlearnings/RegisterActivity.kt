@@ -15,7 +15,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.darmajaya.globalsurya.API.ApiClient
+import com.darmajayamlearnings.API.ApiClient
 import com.darmajayamlearnings.Model.Auth
 import com.darmajayamlearnings.Model.RKelas
 import com.darmajayamlearnings.Utils.Validate

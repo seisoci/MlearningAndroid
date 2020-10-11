@@ -1,4 +1,4 @@
-package com.darmajaya.globalsurya.API
+package com.darmajayamlearnings.API
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    var BASE_URL:String="https://larasbahasa.com/"
+    var BASE_URL:String="http://sman1sunkaiutara.xyz/"
     val getClient: ApiInterface
         get() {
 

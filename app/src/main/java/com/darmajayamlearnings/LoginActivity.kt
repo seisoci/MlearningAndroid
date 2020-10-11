@@ -2,7 +2,7 @@ package com.darmajayamlearnings
 
 import android.content.Intent
 import android.os.Bundle
-import com.darmajaya.globalsurya.API.ApiClient
+import com.darmajayamlearnings.API.ApiClient
 import com.darmajayamlearnings.Model.Auth
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call

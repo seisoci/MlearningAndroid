@@ -2,7 +2,7 @@ package com.darmajayamlearnings
 
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.darmajaya.globalsurya.API.ApiClient.BASE_URL
+import com.darmajayamlearnings.API.ApiClient.BASE_URL
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : BaseActivity() {

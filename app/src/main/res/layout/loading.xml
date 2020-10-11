@@ -13,11 +13,11 @@
 
         <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/spin_kit"
-            style="@style/SpinKitView.CubeGrid"
+            style="@style/SpinKitView.Circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:SpinKit_Color="@color/yellow_600" />
+            app:SpinKit_Color="@color/blue_500" />
 
 
             <TextView

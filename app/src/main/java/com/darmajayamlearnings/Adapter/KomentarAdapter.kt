@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.darmajaya.globalsurya.API.ApiClient
+import com.darmajayamlearnings.API.ApiClient
 import com.darmajayamlearnings.MateriActivity
 import com.darmajayamlearnings.Model.DataKomentar
 import com.darmajayamlearnings.Model.Mlearningsiswa

@@ -5,22 +5,27 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.darmajaya.globalsurya.API.ApiClient
-import com.darmajayamlearnings.DetailMateri
-import com.darmajayamlearnings.KomentarActivity
-import com.darmajayamlearnings.MateriActivity
-import com.darmajayamlearnings.Model.DataMateri
-import com.darmajayamlearnings.Model.Materi
-import com.darmajayamlearnings.Model.Mlearningsiswa
-import com.darmajayamlearnings.R
+import com.darmajayamlearnings.*
+import com.darmajayamlearnings.API.ApiClient
+import com.darmajayamlearnings.Model.*
+import com.muddzdev.styleabletoast.StyleableToast
+import kotlinx.android.synthetic.main.activity_kelas.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MateriAdapter(private var dataList: List<DataMateri>?, private val context: Context) :
+class MateriAdapter(private var dataList: List<DataMateri>?, private val context: Context, private val token: String, private val user_id: String, private val mlearningkelas_id: String) :
     RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
+    lateinit var loading: AlertDialog
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +36,11 @@ class MateriAdapter(private var dataList: List<DataMateri>?, private val context
                 false
             )
         )
+        val dialog = AlertDialog.Builder(context)
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.loading, null)
+        dialog.setView(mDialogView)
+        dialog.setCancelable(false)
+        loading = dialog.create()
     }
 
     override fun getItemCount(): Int {
@@ -63,6 +73,39 @@ class MateriAdapter(private var dataList: List<DataMateri>?, private val context
             intent.putExtra("id", dataModel.id.toString())
             context.startActivity(intent)
         }
+        holder.upload.setOnClickListener {
+            val intent = Intent(context, UploadTugasActivity::class.java)
+            intent.putExtra("id", dataModel.id.toString())
+            context.startActivity(intent)
+        }
+        holder.absensi.setOnClickListener {
+            val call: Call<RAbsensi> = ApiClient.getClient.addAbsensi(token, user_id, mlearningkelas_id, dataModel.id.toString())
+            call.enqueue(object : Callback<RAbsensi> {
+                override fun onResponse(call: Call<RAbsensi>, response: Response<RAbsensi>) {
+                    when {
+                        response?.isSuccessful!! -> {
+                            StyleableToast.makeText(context, response.body()!!.message, Toast.LENGTH_LONG, R.style.sukses).show()
+                        }
+                        response.code() == 500 -> {
+                            StyleableToast.makeText(context, "gagal absensi", Toast.LENGTH_LONG, R.style.sukses).show()
+
+
+                        }
+                        else -> {
+                            StyleableToast.makeText(context, "gagal absensi", Toast.LENGTH_LONG, R.style.sukses).show()
+
+
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<RAbsensi>?, t: Throwable?) {
+                    StyleableToast.makeText(context, "gagal absensi", Toast.LENGTH_LONG, R.style.sukses).show()
+
+                }
+
+            })
+        }
     }
 
 
@@ -71,12 +114,17 @@ class MateriAdapter(private var dataList: List<DataMateri>?, private val context
         lateinit var image: ImageView
         lateinit var komentar: TextView
         lateinit var tanggal: TextView
+        lateinit var absensi: TextView
+        lateinit var upload: TextView
+
 
         init {
             judul = view.findViewById(R.id.judul)
             image = view.findViewById(R.id.image)
             tanggal = view.findViewById(R.id.tanggal)
             komentar = view.findViewById(R.id.komentar)
+            absensi = view.findViewById(R.id.absensi)
+            upload = view.findViewById(R.id.upload)
 
         }
 

@@ -8,7 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.darmajaya.globalsurya.API.ApiClient
+import com.darmajayamlearnings.API.ApiClient
 import com.darmajayamlearnings.Adapter.KomentarAdapter
 import com.darmajayamlearnings.Adapter.MateriAdapter
 import com.darmajayamlearnings.Model.Komentar

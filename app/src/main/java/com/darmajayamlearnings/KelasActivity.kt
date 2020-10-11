@@ -8,7 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.darmajaya.globalsurya.API.ApiClient
+import com.darmajayamlearnings.API.ApiClient
 import com.darmajayamlearnings.Adapter.KelasAdapter
 import com.darmajayamlearnings.Adapter.MateriAdapter
 import com.darmajayamlearnings.Model.*
@@ -178,7 +178,6 @@ class KelasActivity : BaseActivity() {
         call.enqueue(object : Callback<RJoinKelas> {
 
             override fun onResponse(call: Call<RJoinKelas>?, response: Response<RJoinKelas>?) {
-                showSuccessMessage("Login Sukses")
                 dismissLoadingProgress()
                 when {
                     response?.isSuccessful!! -> {

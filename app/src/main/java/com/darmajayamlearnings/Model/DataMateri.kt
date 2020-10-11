@@ -16,10 +16,8 @@ data class DataMateri(
     val id: Int? = 0,
     @SerializedName("image")
     val image: String? = "",
-    @SerializedName("image_2")
-    val image2: String? = "",
-    @SerializedName("image_3")
-    val image3: String? = "",
+    @SerializedName("file")
+    val file: String? = "",
     @SerializedName("judul")
     val judul: String? = "",
     @SerializedName("kelas_mlearning_id")

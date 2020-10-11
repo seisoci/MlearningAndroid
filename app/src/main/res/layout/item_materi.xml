@@ -48,6 +48,28 @@
             android:orientation="horizontal">
 
             <Button
+            android:id="@+id/absensi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1"
+            android:background="@color/green_300"
+            android:gravity="center"
+            android:text="Absensi"
+            android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/upload"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@color/red_500"
+                android:gravity="center"
+                android:text="Upload Tugas"
+                android:textColor="@android:color/white" />
+
+            <Button
                 android:id="@+id/komentar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

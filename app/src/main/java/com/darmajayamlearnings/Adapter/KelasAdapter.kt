@@ -39,7 +39,7 @@ class KelasAdapter(private var dataList: List<Mlearningsiswa>?, private val cont
             i.data = Uri.parse(url)
             context.startActivity(i)
         }*/
-        holder.kelas.text = dataModel.mlearningkelas?.matapelajaran?.namaMatapelajaran.toString()
+        holder.kelas.text = dataModel.mlearningkelas?.kelas?.namaKelas.toString()
         holder.matapelajaran.text = dataModel.mlearningkelas?.matapelajaran?.namaMatapelajaran.toString()
         holder.guru.text = dataModel.mlearningkelas?.user?.name.toString()
         holder.jurusan.text = dataModel.mlearningkelas?.jurusan

@@ -17,7 +17,7 @@ data class Mlearningkelas(
     @SerializedName("jurusan")
     val jurusan: String? = "",
     @SerializedName("kelas")
-    val kelas: DataKelas? = DataKelas(),
+    val kelas: MKelas? = MKelas(),
     @SerializedName("matapelajaran")
     val matapelajaran: Matapelajaran? = Matapelajaran(),
     @SerializedName("updated_at")
