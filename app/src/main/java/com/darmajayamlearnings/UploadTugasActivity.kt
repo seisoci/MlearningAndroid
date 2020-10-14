@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.darmajayamlearnings.API.ApiClient
 import com.darmajayamlearnings.Model.Auth
 import com.darmajayamlearnings.Model.DataMateri
+import com.darmajayamlearnings.Model.RUploadTugas
 import kotlinx.android.synthetic.main.activity_upload_tugas.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -20,7 +21,10 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.IOException
+import java.io.InputStream
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -28,9 +32,12 @@ import kotlin.collections.HashMap
 class UploadTugasActivity : BaseActivity() {
     private var dataMateri: DataMateri? = null
     private var idMateri: String? = null
-    var mediaPath: Uri? = null
     private val PERMISSION_CODE = 1000
     var encodedPDF: String? = null
+    private val PICK_PDF_REQUEST = 2000
+    var filePath: Uri? = null
+    var inpusstream: InputStream? = null
+    var inpustreamdata: ByteArray? = null
     var mimeTypes = arrayOf(
         "application/msword",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",  // .doc & .docx
@@ -86,71 +93,52 @@ class UploadTugasActivity : BaseActivity() {
                 }
             } else {
                 val intent = Intent()
-                intent.action = Intent.ACTION_OPEN_DOCUMENT
-                intent.setType("application/pdf");
-                startActivityForResult(intent, 0)
+                intent.action = Intent.ACTION_GET_CONTENT
+                intent.type ="application/pdf"
+                startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 0)
             }
         }
 
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        try {
-            // When an Image is picked
-            if (requestCode == 0 && resultCode == Activity.RESULT_OK && null != data) {
-                // Get the Image from data
-                val selectedImage: Uri = data.data!!
-                try {
-                    val inputStream = this@UploadTugasActivity.contentResolver.openInputStream(
-                        selectedImage
-                    )
-                    val pdfInBytes: ByteArray = ByteArray(inputStream!!.available())
-                    inputStream.read(pdfInBytes)
-                    encodedPDF = Base64.encodeToString(pdfInBytes, Base64.DEFAULT)
-                }catch (e: Exception){
-                    e.printStackTrace()
-                }
 
-            } else {
-                Toast.makeText(this, "You haven't picked Files", Toast.LENGTH_LONG).show()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && null != data) {
+            filePath = data.data!!
+            files_text.text = "File siap untuk di upload"
+
+            inpusstream = getContentResolver().openInputStream(filePath!!)!!
+            inpustreamdata = getBytes(inpusstream!!)
         }
     }
-    private fun getPath(uri: Uri): String? {
-        val projection = arrayOf(MediaStore.Files.FileColumns.DATA)
-        val cursor = managedQuery(uri, projection, null, null, null)
-        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)
-        cursor.moveToFirst()
-        return cursor.getString(column_index)
+
+    private fun showFileChooser() {
+        val intent = Intent()
+        intent.type = "application/pdf"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 0)
     }
 
     private fun uploadFile() {
         showLoadingProgress()
-        if (mediaPath != null) {
+        if (filePath != null) {
+            var file = File(filePath!!.path)
             showLoadingProgress()
-            val file = File(getPath(mediaPath!!))
-
             val map = HashMap<String, RequestBody>()
             map.put("mlearningmateri_id", createRequestBody(idMateri.toString()))
             map.put("user_id", createRequestBody(retrieveID().toString()))
             val requestBody1: RequestBody = RequestBody.create(
                 "application/pdf".toMediaTypeOrNull(),
-                file
+                inpustreamdata!!
             )
 
             val fileToUpload =
-                MultipartBody.Part.createFormData("image", file.name, requestBody1)
-            val call: Call<Auth> =
-                ApiClient.getClient.register(fileToUpload, map)
-            call.enqueue(object : Callback<Auth> {
-                override fun onResponse(call: Call<Auth>?, response: Response<Auth>?) {
+                MultipartBody.Part.createFormData("file", file.name, requestBody1)
+            val call: Call<RUploadTugas> =
+                ApiClient.getClient.uploadTugas(retrieveToken().toString(), fileToUpload, map)
+            call.enqueue(object : Callback<RUploadTugas> {
+                override fun onResponse(call: Call<RUploadTugas>?, response: Response<RUploadTugas>?) {
                     dismissLoadingProgress()
                     when {
                         response?.isSuccessful!! -> {
@@ -174,7 +162,7 @@ class UploadTugasActivity : BaseActivity() {
 
                 }
 
-                override fun onFailure(call: Call<Auth>?, t: Throwable?) {
+                override fun onFailure(call: Call<RUploadTugas>?, t: Throwable?) {
                     showErrorMessage("Upload gagal")
                     dismissLoadingProgress()
 
@@ -186,5 +174,17 @@ class UploadTugasActivity : BaseActivity() {
             dismissLoadingProgress()
 
         }
+    }
+
+    @Throws(IOException::class)
+    private fun getBytes(`is`: InputStream): ByteArray? {
+        val byteBuff = ByteArrayOutputStream()
+        val buffSize = 1024
+        val buff = ByteArray(buffSize)
+        var len = 0
+        while (`is`.read(buff).also({ len = it }) != -1) {
+            byteBuff.write(buff, 0, len)
+        }
+        return byteBuff.toByteArray()
     }
 }
